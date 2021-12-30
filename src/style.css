@@ -1,0 +1,63 @@
+.ant-layout-header {
+  color: rgb(116, 116, 170);
+}
+
+.ant-layout-header a:hover,
+.ant-layout-header a:focus {
+  color: white;
+}
+
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after,
+.ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected::after {
+  border-bottom: 2px solid #21bf96 !important;
+}
+
+.ant-menu-horizontal > .ant-menu-item-selected a,
+.ant-menu-horizontal > .ant-menu-item a:hover {
+  color: #21bf96 !important;
+}
+
+.ant-modal-content {
+  overflow: auto;
+  border-radius: 1rem;
+}
+
+#main-content {
+  background: linear-gradient(200deg, rgb(38, 20, 66) 0%, rgb(19, 10, 42) 50%, rgb(42, 91, 170) 100%);
+  background-image: url('https://www.illuvium.io/images/backgrounds/1440x900.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  margin-top: 64px;
+}
+
+#main-footer {
+  background: linear-gradient(rgb(19, 10, 42) 0%, rgb(28, 11, 71) 100%);
+}
+
+#main-footer .ant-typography {
+  color: rgb(116, 116, 170);
+}
+
+.section-divider {
+  opacity: 1;
+  margin: 0 auto;
+  width: 99%;
+  height: 2px !important;
+  /* border-image-slice: 1;
+  border-bottom: 2px;
+  border-image-source: linear-gradient(270deg, rgba(9, 228, 97, 0) 0%, rgb(206, 239, 0) 17.19%, rgb(81, 249, 128) 34.38%, rgb(45, 81, 237) 50%, rgb(0, 96, 241) 67.19%, rgb(241, 0, 217) 83.33%, rgba(45, 73, 85, 0) 99.75%); */
+  background: linear-gradient(270deg, rgba(9, 228, 97, 0) 0%, rgb(206, 239, 0) 17.19%, rgb(81, 249, 128) 34.38%, rgb(45, 81, 237) 50%, rgb(0, 96, 241) 67.19%, rgb(241, 0, 217) 83.33%, rgba(45, 73, 85, 0) 99.75%);  
+}
+
+.ant-divider-horizontal {
+  height: 2px;
+  background: linear-gradient(270deg, rgba(9, 228, 97, 0) 0%, rgb(206, 239, 0) 17.19%, rgb(81, 249, 128) 34.38%, rgb(45, 81, 237) 50%, rgb(0, 96, 241) 67.19%, rgb(241, 0, 217) 83.33%, rgba(45, 73, 85, 0) 99.75%);
+}
