@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from "react
 import { Menu, Layout } from "antd";
 import "antd/dist/antd.css";
 import "./style.css";
+import Account from "components/Account";
 import HomePage from "components/QuickStart";
 import DashboardPage from "components/DashboardPage";
 import Text from "antd/lib/typography/Text";
@@ -37,8 +38,7 @@ const styles = {
     display: "flex",
     gap: "20px",
     alignItems: "center",
-    fontSize: "15px",
-    fontWeight: "600",
+    fontSize: "16px",
   },
 };
 
@@ -62,12 +62,6 @@ const App = ({ isServerInfo }) => {
                 <div style={{width:"250px"}}>
                   <Logo />
                 </div>
-                {/* <img src={rare} alt="" style={{height:"50px"}}/> */}
-                {/* <div style={{display:"flex"}}>
-                  <span style={{marginRight:"20px"}}>Get Listed</span>
-                  <span style={{marginRight:"20px"}}>Learn More</span>
-                  <span style={{marginRight:"20px"}}>FAQ</span>
-                </div> */}
                 <Menu
                   theme="light"
                   mode="horizontal"
@@ -86,6 +80,9 @@ const App = ({ isServerInfo }) => {
                     <NavLink to="/dashboard">Dashboard</NavLink>
                   </Menu.Item>
                 </Menu>
+                <div style={styles.headerRight}>
+                  <Account />
+                </div>
               </div>
             </div>
           </div>

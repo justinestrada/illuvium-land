@@ -8,11 +8,12 @@ import { Skeleton } from "antd";
 
 const styles = {
   address: {
-    height: "36px",
     display: "flex",
     gap: "5px",
-    backgroundColor: "rgba(255, 255, 255, 0.1)",
-    borderRadius: "9px",
+    padding: "4px 8px",
+    // backgroundColor: "rgb(116, 116, 170)",
+    backgroundColor: "rgba(255, 255, 255, 0.125)",
+    borderRadius: "0.25rem",
     alignItems: "center",
   },
 };
@@ -35,7 +36,7 @@ function Address(props) {
       height="26"
       viewBox="0 0 24 24"
       strokeWidth="2"
-      stroke="#1780FF"
+      stroke="#fff"
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"

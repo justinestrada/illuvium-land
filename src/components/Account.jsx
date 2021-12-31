@@ -1,23 +1,13 @@
 import { useMoralis } from "react-moralis";
 import { getEllipsisTxt } from "helpers/formatters";
-import Blockie from "./Blockie";
+// import Blockie from "./Blockie";
 import { Button, Card, Modal } from "antd";
 import { useState } from "react";
 import Address from "./Address/Address";
 import { SelectOutlined } from "@ant-design/icons";
 import { getExplorer } from "helpers/networks";
+
 const styles = {
-  account: {
-    height: "42px",
-    padding: "0 15px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "fit-content",
-    borderRadius: "12px",
-    backgroundColor: "rgb(244, 244, 244)",
-    cursor: "pointer",
-  },
   text: {
     color: "#21BF96",
   },
@@ -29,35 +19,39 @@ function Account() {
 
   if (!isAuthenticated) {
     return (
-      <div style={styles.account} onClick={() => authenticate({ signingMessage: "Hello World!" })}>
-        <p style={styles.text}>Authenticate</p>
-      </div>
+      <button className="btn btn-outline-primary btn-outline-multicolored px-0"
+        onClick={() => authenticate({ signingMessage: "Hello World!" })}
+        style={{
+          width: '128px',
+        }}>
+        Connect Wallet
+      </button>
     );
   }
 
   return (
     <>
-      <div style={styles.account} onClick={() => setIsModalVisible(true)}>
-        <p style={{ marginRight: "5px", ...styles.text }}>{getEllipsisTxt(account, 6)}</p>
-        <Blockie currentWallet scale={3} />
-      </div>
+      <button className="btn btn-outline-primary btn-outline-multicolored" onClick={() => setIsModalVisible(true)}>
+        {getEllipsisTxt(account, 6)}
+      </button>
       <Modal
         visible={isModalVisible}
         footer={null}
         onCancel={() => setIsModalVisible(false)}
         bodyStyle={{
           padding: "15px",
-          fontSize: "17px",
-          fontWeight: "500",
+          backgroundColor: 'darkpurple',
+          fontSize: "16px",
         }}
-        style={{ fontSize: "16px", fontWeight: "500" }}
+        style={{ fontSize: "16px" }}
         width="400px"
+        className="account-modal"
       >
         Account
         <Card
           style={{
-            marginTop: "10px",
-            borderRadius: "1rem",
+            marginTop: "15px",
+            borderRadius: "0.25rem",
           }}
           bodyStyle={{ padding: "15px" }}
         >
@@ -74,10 +68,8 @@ function Account() {
           type="primary"
           style={{
             width: "100%",
-            marginTop: "10px",
-            borderRadius: "0.5rem",
+            marginTop: "16px",
             fontSize: "16px",
-            fontWeight: "500",
           }}
           onClick={() => {
             logout();

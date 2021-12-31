@@ -50,6 +50,7 @@ function HomePage() {
       const query = new Moralis.Query(dbNFTs);
       query.equalTo("tokenId", num);
       let selectedNFT = await query.first();
+      console.log('selectedNFT', selectedNFT)
       selectedNFT = selectedNFT.attributes;
       setNft(selectedNFT);
       setVisibility(true);
