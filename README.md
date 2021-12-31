@@ -53,3 +53,9 @@ REACT_APP_MORALIS_SERVER_URL = https://xxxxxx.grandmoralis.com:2053/server
 ```sh
 yarn start
 ```
+
+🛠️ Build your App:
+```sh
+yarn build
+```
+This creates a `build` folder.
