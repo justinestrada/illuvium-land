@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useMoralis } from "react-moralis";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import { Layout } from "antd";
+import { BrowserRouter as Router, Switch, Route, NavLink, Redirect } from "react-router-dom";
+import { Menu, Layout } from "antd";
 import "antd/dist/antd.css";
 import "./style.css";
 import HomePage from "components/QuickStart";
+import DashboardPage from "components/DashboardPage";
 import Text from "antd/lib/typography/Text";
 const { Header, Footer } = Layout;
 
@@ -62,11 +63,29 @@ const App = ({ isServerInfo }) => {
                   <Logo />
                 </div>
                 {/* <img src={rare} alt="" style={{height:"50px"}}/> */}
-                <div style={{display:"flex"}}>
+                {/* <div style={{display:"flex"}}>
                   <span style={{marginRight:"20px"}}>Get Listed</span>
                   <span style={{marginRight:"20px"}}>Learn More</span>
                   <span style={{marginRight:"20px"}}>FAQ</span>
-                </div>
+                </div> */}
+                <Menu
+                  theme="light"
+                  mode="horizontal"
+                  style={{
+                    display: "flex",
+                    fontSize: "16px",
+                    width: "100%",
+                    justifyContent: "flex-end",
+                  }}
+                  defaultSelectedKeys={["homepage"]}
+                >
+                  <Menu.Item key="homepage">
+                    <NavLink to="/homepage">Home</NavLink>
+                  </Menu.Item>
+                  <Menu.Item key="dashboard">
+                    <NavLink to="/dashboard">Dashboard</NavLink>
+                  </Menu.Item>
+                </Menu>
               </div>
             </div>
           </div>
@@ -79,8 +98,11 @@ const App = ({ isServerInfo }) => {
             <Route path="/">
               <Redirect to="/homepage" />
             </Route>
-            <Route path="/ethereum-boilerplate">
+            {/* <Route path="/ethereum-boilerplate">
               <Redirect to="/homepage" />
+            </Route> */}
+            <Route path="/dashboard">
+              <DashboardPage />
             </Route>
           </Switch>
         </main>
@@ -88,6 +110,11 @@ const App = ({ isServerInfo }) => {
       <Footer id="main-footer" className="pt-0">
         <hr className="section-divider mb-3"/>
         <div className="container py-3">
+          <div className="row mb-3">
+            <div className="col">
+              <div id="coinmarketcap-widget-coin-price-block" coins="1027,8719" currency="USD" theme="dark" transparent="true" show-symbol-logo="false"></div>
+            </div>
+          </div>
           <div className="row">
             <div className="col" style={{ textAlign: "center" }}>
               <Text style={{ display: "block" }}>

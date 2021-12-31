@@ -9,8 +9,10 @@ const resolveLink = (url) => {
   return url.replace("ipfs://", "https://gateway.ipfs.io/ipfs/");
 };
 
-const collectionAddress = '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D'
-const collectionName = 'BoredApeYachtClub'
+// const collectionAddress = '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D'
+// const collectionName = 'BoredApeYachtClub'
+const collectionAddress = '0xc2e9678A71e50E5AEd036e00e9c5caeb1aC5987D'
+const collectionName = 'WilderWorld'
 
 async function generateRarity() {
   const NFTs = await Moralis.Web3API.token.getAllTokenIds({
@@ -19,9 +21,18 @@ async function generateRarity() {
 
   const totalNum = NFTs.total;
   const pageSize = NFTs.page_size;
-  console.log(totalNum);
-  console.log(pageSize);
+  console.log(totalNum, pageSize);
   let allNFTs = NFTs.result;
+
+  if (collectionName === 'WilderWorld') {
+    for (i = 0; i < allNFTs.length; i++) {
+      nft = allNFTs[i];
+      if (nft.metadata == null) { 
+        allNFTs.splice(i, 1);
+        i--; // decrement
+      }
+    }
+  }
 
   // const timer = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -34,7 +45,11 @@ async function generateRarity() {
   //   await timer(6000);
   // }
 
-  let metadata = allNFTs.map((e) => JSON.parse(e.metadata).attributes);
+  let metadata = allNFTs.map((e) => {
+    const metadata = e.metadata ? JSON.parse(e.metadata) : null
+    return metadata !== null ? metadata.attributes : []
+  });
+
 
   let tally = { TraitCount: {} };
 
@@ -79,8 +94,7 @@ async function generateRarity() {
       totalRarity += rarityScore;
     }
 
-    let rarityScoreNumTraits =
-      8 * (1 / (tally.TraitCount[Object.keys(current).length] / totalNum));
+    let rarityScoreNumTraits = 8 * (1 / (tally.TraitCount[Object.keys(current).length] / totalNum));
     current.push({
       trait_type: "TraitCount",
       value: Object.keys(current).length,
@@ -106,9 +120,28 @@ async function generateRarity() {
       });
     }
 
-    if (allNFTs[j]?.metadata) {
+    // if (allNFTs[j]?.metadata) {
+    //   allNFTs[j].metadata = JSON.parse(allNFTs[j].metadata);
+    //   allNFTs[j].image = resolveLink(allNFTs[j].metadata?.image);
+    // } else if (allNFTs[j].token_uri) {
+    //   try {
+    //     await fetch(allNFTs[j].token_uri)
+    //       .then((response) => response.json())
+    //       .then((data) => {
+    //         allNFTs[j].image = resolveLink(data.image);
+    //       });
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
+
+    if (allNFTs[j].metadata) {
       allNFTs[j].metadata = JSON.parse(allNFTs[j].metadata);
-      allNFTs[j].image = resolveLink(allNFTs[j].metadata?.image);
+      allNFTs[j].image = resolveLink(allNFTs[j].metadata.image);
+
+      if (collectionName === 'WilderWorld' && allNFTs[j].metadata) {
+        allNFTs[j].video = (allNFTs[j].metadata.animation_url) ? resolveLink(allNFTs[j].metadata.animation_url) : null
+      }
     } else if (allNFTs[j].token_uri) {
       try {
         await fetch(allNFTs[j].token_uri)
@@ -121,17 +154,19 @@ async function generateRarity() {
       }
     }
 
-    nftArr.push({
+    let newNFT = {
       Attributes: current,
       Rarity: totalRarity,
       token_id: allNFTs[j].token_id,
       image: allNFTs[j].image,
-    });
+      video: allNFTs[j].video ? allNFTs[j].video : null
+    }
+    // console.log('newNFT', newNFT)
+    nftArr.push(newNFT);
   }
 
   nftArr.sort((a, b) => b.Rarity - a.Rarity);
 
-  // console.log(nftArr[0])
   for (let i = 0; i < nftArr.length; i++) {
     nftArr[i].Rank = i + 1;
     const newClass = Moralis.Object.extend(collectionName);
@@ -142,6 +177,7 @@ async function generateRarity() {
     newObject.set("tokenId", nftArr[i].token_id);
     newObject.set("rank", nftArr[i].Rank);
     newObject.set("image", nftArr[i].image);
+    newObject.set("video", nftArr[i].video);
 
     await newObject.save();
     console.log(i);
