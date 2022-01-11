@@ -100,15 +100,13 @@ const App = ({ isServerInfo }) => {
         </section>
         <main id="main-content" className="py-5" style={styles.content}>
           <Switch>
-            <Route exact path="/homepage">
-              <HomePage isServerInfo={isServerInfo} />
+            <Route exact path="/">
+              {/* <HomePage isServerInfo={isServerInfo} /> */}
+              <DashboardPage />
             </Route>
             <Route path="/">
-              <Redirect to="/homepage" />
+              <Redirect to="/" />
             </Route>
-            {/* <Route path="/ethereum-boilerplate">
-              <Redirect to="/homepage" />
-            </Route> */}
             <Route path="/dashboard">
               <DashboardPage />
             </Route>
@@ -125,7 +123,7 @@ const App = ({ isServerInfo }) => {
           </div>
           <div className="row">
             <div className="col" style={{ textAlign: "center" }}>
-              <div style={{ width: "192px", margin: "0 auto" }}>
+              <div style={{ width: "192px", margin: "0 auto 16px" }}>
                 <Logo />
               </div>
               <Text style={{ display: "block" }}>
